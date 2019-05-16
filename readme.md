@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/mwakaambrose/wu-tang/tree/master.svg?style=svg)](https://circleci.com/gh/mwakaambrose/wu-tang/tree/master)
 #### Polymorphism 
 Is the ability of an object to take on many forms. The most common use of polymorphism in OOP occurs when a parent class reference is
 used to refer to a child class object
