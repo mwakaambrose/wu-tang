@@ -1,0 +1,13 @@
+config/config.js
+.DS_Store
+.Trashes
+*.swp
+logs
+*.log
+npm-debug.log*
+*.pid
+*.seed
+coverage
+.grunt
+lib
+node_modules
