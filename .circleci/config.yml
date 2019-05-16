@@ -5,18 +5,9 @@ jobs: # a collection of steps
     docker: # run the steps with Docker
       - image: circleci/node:4.8.2 # ...with this image as the primary container; this is where all `steps` will run
     steps: # a collection of executable commands
-      - checkout # special step to check out source code to working directory
-#      - run:
-#          name: update-npm
-#          command: 'sudo npm install -g npm@latest'
-#      - restore_cache: # special step to restore the dependency cache
-#          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-#          key: dependency-cache-{{ checksum "package.json" }}
-#      - run:
-#          name: install-npm-dependencies
-#          command: npm install
+      - checkout # special step to check out source code to working directory(git)
       - run:
-          name: "Update Node.js and npm"
+          name: update-node-and-npm
           command: |
             curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
             curl https://www.npmjs.com/install.sh | sudo bash
@@ -26,23 +17,22 @@ jobs: # a collection of steps
       - run:
           name: install-npm-dependencies
           command: npm install
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-      - run: # run tests
-          name: test
+      - run:
+          name: barbel-build-es6
+          command: npm run build
+      - run:
+          name: run-tests
           command: npm test
-      - run: # run coverage report
-          name: code-coverage
-          command: './node_modules/.bin/nyc report --reporter=text-lcov'
-      - store_artifacts: # special step to save test results as as artifact
-          # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: test-results.xml
-          prefix: tests
-      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: coverage
-          prefix: coverage
-      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: test-results.xml
-      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
+#      - run: # run coverage report
+#          name: code-coverage
+#          command: './node_modules/.bin/nyc report --reporter=text-lcov'
+#      - store_artifacts: # special step to save test results as as artifact
+#          # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+#          path: test-results.xml
+#          prefix: tests
+#      - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+#          path: coverage
+#          prefix: coverage
+#      - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+#          path: test-results.xml
+#      # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
