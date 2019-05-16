@@ -11,3 +11,12 @@ by a driver, instead its self driven (auto pilot). The class
 `Tesla` will have to override the `drivenBy` method of the parent and
 return auto pilot. So the parent class `Vehicle` can take it
 form and boast that its self driven. That is polymorphism.
+
+
+#### Testing
+In babel preset, `"test": ["jest"]` option doesn't allow me to compile
+and yet when its not added to the `rc` file, the tests won't run. Look into this
+
+
+####TODOs
+[ ] - Figure out babel 7

@@ -10,5 +10,4 @@ npm-debug.log*
 *.seed
 coverage
 .grunt
-lib
 node_modules
