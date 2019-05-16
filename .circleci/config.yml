@@ -1,20 +1,28 @@
-version: 2 # use CircleCI 2.0
+version: 2.1 # use CircleCI 2.0
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
-    working_directory: ~/mern-starter # directory where steps will run
+    working_directory: ~/wu-tang # directory where steps will run
     docker: # run the steps with Docker
       - image: circleci/node:4.8.2 # ...with this image as the primary container; this is where all `steps` will run
     steps: # a collection of executable commands
       - checkout # special step to check out source code to working directory
+#      - run:
+#          name: update-npm
+#          command: 'sudo npm install -g npm@latest'
+#      - restore_cache: # special step to restore the dependency cache
+#          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+#          key: dependency-cache-{{ checksum "package.json" }}
+#      - run:
+#          name: install-npm-dependencies
+#          command: npm install
       - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache: # special step to restore the dependency cache
-          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: dependency-cache-{{ checksum "package.json" }}
+          name: "Update Node.js and npm"
+          command: |
+            curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+            curl https://www.npmjs.com/install.sh | sudo bash
       - run:
-          name: install-npm-dependencies
-          command: npm install
+          name: Check current version of node
+          command: node -v
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
