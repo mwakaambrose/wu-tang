@@ -19,5 +19,5 @@ In babel preset, `"test": ["jest"]` option doesn't allow me to compile
 and yet when its not added to the `rc` file, the tests won't run. Look into this
 
 
-####TODOs
-[ ] - Figure out babel 7
+#### TODOs
+-[ ] Figure out babel 7
